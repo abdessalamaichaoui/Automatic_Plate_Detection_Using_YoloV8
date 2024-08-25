@@ -44,7 +44,7 @@ To set up the project on your local machine, follow these steps:
 ### Clone the Repository
 
 ```bash
-git clone 
+git clone github.com/abdessalamaichaoui/Automatic_Plate_Detection_Using_YoloV8
 ```
 
 ### Install Dependencies
