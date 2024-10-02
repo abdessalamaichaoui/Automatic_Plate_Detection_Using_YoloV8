@@ -6,18 +6,7 @@ This project focuses on developing a comprehensive parking management system tha
 
 The main goal of this project is to automate the process of monitoring vehicle movements in a parking lot, providing a seamless and efficient way to manage parking spaces and track vehicle activities.
 
-## Table of Contents
 
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [System Architecture](#system-architecture)
-- [Live Streaming and Detection](#live-streaming-and-detection)
-- [Database Integration](#database-integration)
-- [Example Outputs](#example-outputs)
-- [How It Works](#how-it-works)
-- [Future Work](#future-work)
-- [License](#license)
-- [Contact](#contact)
 
 ## Features
 
@@ -37,23 +26,14 @@ The main goal of this project is to automate the process of monitoring vehicle m
 - **PyTorch:** The deep learning framework for building and training models.
 - **RTSP Protocol:** Enables streaming from IP cameras for real-time detection.
 
-## Installation
 
-To set up the project on your local machine, follow these steps:
 
-### Clone the Repository
-
-```bash
-git clone github.com/abdessalamaichaoui/Automatic_Plate_Detection_Using_YoloV8
-```
-
-### Install Dependencies
+### Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Ensure that you have Python 3.7 or higher installed on your system. Additionally, you'll need access to an IP camera supporting RTSP streaming or a computer with a webcam.
 
 ### Database Setup
 
@@ -67,16 +47,6 @@ CREATE TABLE parking_records (
     exit_time TIMESTAMP
 );
 ```
-
-### Update Database Configuration
-
-Edit the `config.py` file to specify your database connection details.
-
-```python
-DATABASE_URI = 'sqlite:///parking.db'
-```
-
-For other database systems like MySQL or PostgreSQL, update the URI accordingly.
 
 ## System Architecture
 
@@ -96,31 +66,7 @@ The system consists of several components working together to achieve efficient 
      +--------------------------------[User Interface]------------------------+
 ```
 
-## Live Streaming and Detection
 
-The system is capable of connecting to live video streams via RTSP or using the computer's own camera for real-time license plate detection. This feature is particularly useful for parking lots or any environment requiring automated vehicle tracking.
-
-### Connecting to an RTSP Stream
-
-To connect to an RTSP stream from an IP camera, use the following command:
-
-```bash
-python live_detect.py --rtsp-url rtsp://username:password@camera_ip:port --conf-thres 0.5 --iou-thres 0.4
-```
-
-- `--rtsp-url`: The RTSP URL of the IP camera.
-- `--conf-thres`: Confidence threshold for detections.
-- `--iou-thres`: Intersection over Union threshold for non-max suppression.
-
-### Using the Local Camera
-
-To use the local camera for live detection, execute:
-
-```bash
-python live_detect.py --use-local-camera --conf-thres 0.5 --iou-thres 0.4
-```
-
-- `--use-local-camera`: Flag to indicate using the local camera instead of an RTSP stream.
 
 ## Database Integration
 
@@ -152,24 +98,6 @@ CREATE TABLE parking_records (
 | 2   | XYZ5678       | 2024-07-24 09:45:00 |                    |
 | 3   | LMN8901       | 2024-07-24 10:00:00 | 2024-07-24 11:00:00|
 
-### Accessing the Database
-
-You can view or modify the database records using any SQL client or through a simple Python script like this:
-
-```python
-import sqlite3
-
-def view_records():
-    conn = sqlite3.connect('parking.db')
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM parking_records")
-    records = cursor.fetchall()
-    for record in records:
-        print(record)
-    conn.close()
-
-view_records()
-```
 
 ## Example Outputs
 
@@ -192,60 +120,3 @@ Here are some examples of the system's outputs during operation:
 **Database Record:**
 
 ![Database Entry](examples/database.png)
-
-## How It Works
-
-The system uses a combination of deep learning, machine learning, and image processing techniques to detect, recognize, and log license plates.
-
-### Workflow
-
-1. **Capture Video Frame:** The system captures frames from the video stream in real-time using OpenCV.
-2. **License Plate Detection:** The YOLOv8 model processes each frame to detect potential license plates.
-3. **OCR Processing:** Detected plates are passed through an Optical Character Recognition (OCR) module to read the license plate numbers.
-4. **Database Logging:** The recognized license plates are logged into the database with their entry and exit times.
-5. **User Feedback:** Optionally, the system displays the detection results and database status on a user interface.
-
-### Detailed Explanation
-
-#### Step 1: Capture Video Frame
-
-- **Camera Input:** The system connects to the camera using RTSP or local camera access, capturing live video frames.
-- **Frame Processing:** Each frame is preprocessed for noise reduction and normalization.
-
-#### Step 2: License Plate Detection
-
-- **YOLOv8 Model:** The YOLOv8 model, trained on a dataset of car images, is used to detect bounding boxes around license plates.
-- **Detection Thresholds:** Confidence and IoU thresholds are applied to filter out false positives.
-
-#### Step 3: OCR Processing
-
-- **Character Recognition:** Detected license plates are cropped from
-
- the image and processed through an OCR engine to extract text.
-- **Text Validation:** Extracted text is validated against known formats to ensure accuracy.
-
-#### Step 4: Database Logging
-
-- **Entry Logging:** When a new license plate is detected, the entry time is logged in the database.
-- **Exit Logging:** If a detected license plate already has an entry record, the exit time is updated in the database.
-
-#### Step 5: User Feedback
-
-- **UI Display:** An optional user interface displays real-time detection results, including bounding boxes and recognized text.
-- **Database View:** The UI may also provide access to view and manage the database records.
-
-### Architectural Flow
-
-```plaintext
-[Input Video Frame] --> [YOLOv8 Detection] --> [OCR Recognition] --> [Database Logging] --> [User Interface]
-```
-
-
-
-## Contact
-
-For any questions, comments, or suggestions, please reach out:
-
-- **Name:** Abd Essalam AICHAOUI
-- **Email:** abdessalam.aichaoui@gmail.com
----
